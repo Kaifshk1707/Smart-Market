@@ -10,6 +10,7 @@ import SignInScreen from "./src/screens/auth/SignInScreen";
 import SignUpScreen from "./src/screens/auth/SignUpScreen";
 import AuthStack from "./src/navigations/AuthStack";
 import { NavigationContainer } from "@react-navigation/native";
+import MainAppStack from "./src/navigations/MainAppStack";
 
 export default function App() {
   return (
@@ -20,7 +21,7 @@ export default function App() {
       {/* <SignInScreen /> */}
       {/* <SignUpScreen/> */}
       <NavigationContainer>
-        <AuthStack />
+        <MainAppStack />
       </NavigationContainer>
       {/* <AppButton
           // style={{ marginTop: 20 }}

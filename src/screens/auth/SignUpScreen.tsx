@@ -9,14 +9,17 @@ import AppTextInput from "../../components/inputs/AppTextInput";
 import AppButton from "../../components/buttons/AppButton";
 import { globalColor } from "../../styles/globalColor";
 
-const SignUpScreen = () => {
+const SignUpScreen = ({ navigation }) => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   return (
     <AppAreaView style={styles.container}>
       <Image style={styles.imageStyle} source={IMAGES.AppLogo} />
-      <AppTextInput placeholder="Enter your username" onChangeText={setUserName} />
+      <AppTextInput
+        placeholder="Enter your username"
+        onChangeText={setUserName}
+      />
       <AppTextInput placeholder="Enter your email" onChangeText={setEmail} />
       <AppTextInput
         placeholder="Enter your password"
@@ -28,6 +31,7 @@ const SignUpScreen = () => {
         title="Go to Sign-In"
         style={styles.SignInButton}
         textColor={globalColor.blueGray}
+        onPress={() => navigation.goBack("SignInScreen")}
       />
     </AppAreaView>
   );
