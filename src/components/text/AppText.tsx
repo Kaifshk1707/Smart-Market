@@ -2,6 +2,7 @@ import { StyleSheet, Text, TextProps, TextStyle, View } from "react-native";
 import React, { FC } from "react";
 import { s } from "react-native-size-matters";
 import { globalColor } from "./../../styles/globalColor";
+import { globalFontstyle } from "../../styles/fontStyle";
 
 
 interface AppTextProps extends TextProps {
@@ -24,11 +25,11 @@ const styles = StyleSheet.create({
   bold: {
     fontSize: s(20),
     color: globalColor.primary,
-    fontWeight: "bold",
+    fontFamily: globalFontstyle.bold,
   },
   medium: {
     fontSize: s(20),
     color: globalColor.blueGray,
-    fontWeight: "500",
+    fontFamily: globalFontstyle.medium,
   },
 });

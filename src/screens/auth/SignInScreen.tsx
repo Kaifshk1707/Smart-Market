@@ -8,6 +8,7 @@ import AppTextInput from '../../components/inputs/AppTextInput'
 import AppButton from '../../components/buttons/AppButton'
 import { globalColor } from '../../styles/globalColor'
 import {useNavigation} from '@react-navigation/native'
+import { globalFontstyle } from '../../styles/fontStyle'
 
 const SignInScreen = () => {
   

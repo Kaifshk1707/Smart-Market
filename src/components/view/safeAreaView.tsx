@@ -5,7 +5,7 @@ import { Is_Adnroid } from "../../constants/constants";
 
     interface AppAreaViewProps {
       children: React.ReactNode;
-      style: ViewStyle;
+      style?: ViewStyle;
     }
 
 const AppAreaView: FC<AppAreaViewProps> = ({ children, style }) => {
