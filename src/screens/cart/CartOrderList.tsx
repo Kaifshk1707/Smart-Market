@@ -1,5 +1,11 @@
 import React, { FC } from "react";
-import { FlatList, Image, StyleSheet, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { s, vs } from "react-native-size-matters";
 import { globalColor } from "../../styles/globalColor";
 import { globalFontstyle } from "../../styles/fontStyle";
@@ -7,7 +13,8 @@ import AppText from "../../components/text/AppText";
 import { OrderData } from "../../data/OrderData";
 import AppAreaView from "../../components/view/safeAreaView";
 import Entypo from "@expo/vector-icons/Entypo";
-  import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
+import OrderItem from "../../components/carts/OrderItem";
 
 interface CartItems {
   onDeleteButton: () => void;
@@ -18,44 +25,7 @@ interface CartItems {
 }
 
 const CartOrderList: FC<CartItems> = () => {
-     const navigation = useNavigation();
-  const renderItem = ({ item }: { item: any }) => {
-    return (
-      <View style={styles.container}>
-        {/* Image Section */}
-        <View style={styles.imageWrapper}>
-          <Image
-            source={{ uri: item.image }}
-            style={styles.productImage}
-            resizeMode="cover"
-          />
-        </View>
-
-        {/* Info Section */}
-        <View style={styles.detailsWrapper}>
-          <AppText style={styles.heading}>ORDER DETAILS :</AppText>
-
-          {/* Row 1: Total Price */}
-          <View style={styles.row}>
-            <AppText style={styles.label}>Total Price:</AppText>
-            <AppText style={styles.value}>{item.totalPrice} $</AppText>
-          </View>
-
-          {/* Row 2: Total Amount */}
-          <View style={styles.row}>
-            <AppText style={styles.label}>Amount:</AppText>
-            <AppText style={styles.value}>{item.totalAmount}</AppText>
-          </View>
-
-          {/* Row 3: Date */}
-          <View style={styles.row}>
-            <AppText style={styles.label}>Date:</AppText>
-            <AppText style={styles.value}>{item.date}</AppText>
-          </View>
-        </View>
-      </View>
-    );
-  };
+  const navigation = useNavigation();
 
   return (
     <AppAreaView>
@@ -89,12 +59,18 @@ const CartOrderList: FC<CartItems> = () => {
         showsVerticalScrollIndicator={false}
         data={OrderData}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={renderItem}
+        renderItem={({ item }) => (
+          <OrderItem
+            image={item.image}
+            totalAmount={item.totalAmount}
+            totalPrice={item.totalPrice}
+            date={item.date}
+          />
+        )}
       />
     </AppAreaView>
   );
 };
-
 
 export default CartOrderList;
 
@@ -142,7 +118,7 @@ const styles = StyleSheet.create({
   },
   value: {
     fontSize: s(14),
-    color: globalColor.green, 
+    color: globalColor.green,
     fontFamily: globalFontstyle.medium,
   },
 });
