@@ -5,8 +5,12 @@ import HomeHeader from "../../components/headers/HomeHeader";
 import ProductCarts from "../../components/cards/ProductCarts";
 import { Products } from "../../data/Products";
 import { s } from "react-native-size-matters";
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../../redux/reducers/CartSlice";
 
 const HomeScreen = () => {
+
+  const dispatch = useDispatch()
   return (
     <AppAreaView>
       <HomeHeader />
@@ -19,7 +23,7 @@ const HomeScreen = () => {
             imageURL={item.image}
             title={item.title}
             price={item.price}
-            onAddToCartPress={() => {}}
+            onAddToCartPress={() => {dispatch(addItemToCart(item));}}
           />
         )}
         columnWrapperStyle={{justifyContent:"space-between",marginBottom:s(10)}}

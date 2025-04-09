@@ -14,7 +14,7 @@ const TotalCartView :FC<TotalCartView> = ({ itemPrice, orderTotal }) => {
   return (
     <View>
       <View style={styles.rowStyle}>
-        <AppText style={styles.textTitle}>Order title:</AppText>
+        <AppText style={styles.textTitle}>Item Price:</AppText>
         <AppText style={styles.textPrice}>$ {itemPrice}</AppText>
       </View>
       <View style={styles.rowStyle}>

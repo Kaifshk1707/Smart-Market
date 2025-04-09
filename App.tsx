@@ -3,6 +3,8 @@ import AppAreaView from "./src/components/view/safeAreaView";
 import { NavigationContainer } from "@react-navigation/native";
 import MainAppStack from "./src/navigations/MainAppStack";
 import { useFonts } from "expo-font";
+import { Provider } from "react-redux";
+import { store } from "./src/redux/store";
 
 export default function App() {
   const [fontLoaded] = useFonts({
@@ -21,11 +23,11 @@ export default function App() {
   }
 
   return (
-    <AppAreaView>
+    <Provider store={store}>
       <NavigationContainer>
         <MainAppStack />
       </NavigationContainer>
-    </AppAreaView>
+    </Provider>
   );
 }
 

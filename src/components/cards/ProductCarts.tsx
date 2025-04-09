@@ -30,8 +30,8 @@ const ProductCarts: FC<ItemProductCarts> = ({
         <Ionicons
           style={{ top: 5 }}
           name="cart"
-          size={24}
-          color={globalColor.blueGray}
+          size={30}
+          color={globalColor.black}
         />
       </TouchableOpacity>
 
@@ -89,10 +89,10 @@ const styles = StyleSheet.create({
     height: s(30),
     width: s(30),
     position: "absolute",
-    top: 5,
+    top: s(5),
     right: 5,
     zIndex: 1,
-    borderRadius: 20,
+    borderRadius: 5,
     borderColor: globalColor.blueGray,
     borderWidth: 1,
     alignItems: "center",

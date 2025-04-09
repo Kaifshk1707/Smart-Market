@@ -22,7 +22,7 @@ interface CartItems {
   onDecreasePress: () => void;
   imageUrl: string;
   title: string;
-  price: number | number;
+  price: string | number;
   qty: number;
 }
 
@@ -43,7 +43,7 @@ const CartItems: FC<CartItems> = ({
         flexDirection: "row",
         width: "100%",
         borderColor: globalColor.gray,
-        borderWidth: .3,
+        borderWidth: 0.3,
         padding: vs(12),
         // ...commonStyle.shadow,
       }}
