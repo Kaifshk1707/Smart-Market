@@ -26,7 +26,7 @@ const Tab = createBottomTabNavigator();
         }}
       >
         <Tab.Screen
-          name="HomeScreen"
+          name="Home"
           component={HomeScreen}
           options={{
             tabBarIcon: ({ color, size }) => (
@@ -43,7 +43,7 @@ const Tab = createBottomTabNavigator();
             ),
             title: "Cart",
           }}
-          name="CartScreen"
+          name="Cart"
           component={CartScreen}
         />
         <Tab.Screen
@@ -53,7 +53,7 @@ const Tab = createBottomTabNavigator();
             ),
             title: "Profile",
           }}
-          name="ProfileScreen"
+          name="Profile"
           component={ProfileScreen}
         />
       </Tab.Navigator>

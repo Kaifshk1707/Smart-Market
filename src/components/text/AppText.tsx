@@ -24,7 +24,7 @@ export default AppText;
 const styles = StyleSheet.create({
   bold: {
     fontSize: s(20),
-    color: globalColor.primary,
+    color: globalColor.blueGray,
     fontFamily: globalFontstyle.bold,
   },
   medium: {

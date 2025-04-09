@@ -1,20 +1,27 @@
-import { StyleSheet, Text, TouchableOpacity, View, StyleProp, ViewStyle } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  StyleProp,
+  ViewStyle,
+} from "react-native";
 import React, { FC } from "react";
 import { s, vs } from "react-native-size-matters";
 import App from "../../../App";
 import AppText from "../text/AppText";
 import { globalColor } from "../../styles/globalColor";
 
-    interface AppButtonProps {
-      onPress: () => void;
-      title: string;
-      textColor?: string;
-      backgroundColor?: string;
-      style?: StyleProp<ViewStyle>
-        disabled?: boolean;
-    }
+interface AppButtonProps {
+  onPress: () => void;
+  title: string;
+  textColor?: string;
+  backgroundColor?: string;
+  style?: StyleProp<ViewStyle>;
+  disabled?: boolean;
+}
 
-const AppButton :FC<AppButtonProps> = ({
+const AppButton: FC<AppButtonProps> = ({
   onPress,
   title,
   backgroundColor = globalColor.blueGray,
@@ -26,7 +33,11 @@ const AppButton :FC<AppButtonProps> = ({
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={onPress}
-      style={[styles.AppButton, { backgroundColor: disabled? globalColor.lightBlue : backgroundColor }, style]}
+      style={[
+        styles.AppButton,
+        { backgroundColor: disabled ? globalColor.lightBlue : backgroundColor,width:"90%" },
+        style,
+      ]}
     >
       <AppText
         variant="bold"

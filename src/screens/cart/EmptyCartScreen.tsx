@@ -3,10 +3,13 @@ import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import AppText from "../../components/text/AppText";
 import { globalFontstyle } from "../../styles/fontStyle";
-import { s } from "react-native-size-matters";
+import { s, vs } from "react-native-size-matters";
 import { globalColor } from "../../styles/globalColor";
+import { useNavigation } from "@react-navigation/native";
+import AppButton from "../../components/buttons/AppButton";
 
 const EmptyCartScreen = () => {
+  const navigation = useNavigation();
   return (
     <View
       style={{
@@ -14,14 +17,14 @@ const EmptyCartScreen = () => {
         justifyContent: "center",
         alignItems: "center",
         padding: 20,
-        backgroundColor: "#fff",
+        backgroundColor: globalColor.white,
       }}
     >
       <Ionicons
         name="cart-outline"
         size={150}
-        color="#ccc"
-        style={{ marginBottom: 30 }}
+        color={globalColor.blueGray}
+        style={{ marginBottom: vs(20), opacity: 0.4 }}
       />
       <AppText
         style={{
@@ -43,27 +46,12 @@ const EmptyCartScreen = () => {
       >
         Looks like you haven’t added anything to your cart yet.
       </AppText>
-      <TouchableOpacity
-        style={{
-          backgroundColor: "#4F46E5",
-          paddingVertical: 12,
-          paddingHorizontal: 30,
-          borderRadius: 8,
-        }}
+      <AppButton
+        title="Start Shopping"
         onPress={() => {
-          console.log("Start shopping pressed");
+          navigation.navigate("Home");
         }}
-      >
-        <AppText
-          style={{
-            color: "#fff",
-            fontSize: 16,
-            fontFamily: globalFontstyle.bold,
-          }}
-        >
-          Start Shopping
-        </AppText>
-      </TouchableOpacity>
+      />
     </View>
   );
 };
