@@ -1,0 +1,2 @@
+yup package for validation :- Yup is a schema builder for JavaScript applications, it allows you to validate data against a schema and transform data in your applications easily.
+resolver Package:-  React Hook Form Resolvers ... This function allows you to use any external validation library such as Yup, Zod, Joi, Vest, Ajv and many others.

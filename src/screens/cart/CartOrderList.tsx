@@ -41,13 +41,13 @@ const CartOrderList: FC<CartItems> = () => {
         }}
       >
         <TouchableOpacity onPress={() => navigation.goBack("Profile")}>
-          <Entypo name="chevron-left" size={33} color={globalColor.black} />
+          <Entypo name="chevron-left" size={30} color={globalColor.black} />
         </TouchableOpacity>
         <AppText
-          variant="bold"
+          variant="medium"
           style={{
             fontSize: s(18),
-            marginLeft: vs(12),
+            marginLeft: vs(4),
             color: globalColor.black,
           }}
         >
