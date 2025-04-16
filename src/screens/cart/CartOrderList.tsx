@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import {
   FlatList,
   Image,
@@ -15,6 +15,8 @@ import AppAreaView from "../../components/view/safeAreaView";
 import Entypo from "@expo/vector-icons/Entypo";
 import { useNavigation } from "@react-navigation/native";
 import OrderItem from "../../components/carts/OrderItem";
+import { fetchUserData } from "../../config/dataServices";
+import { getDataFromFireStoreTimestampObject } from "../../helpers/dateTimeHelper";
 
 interface CartItems {
   onDeleteButton: () => void;
@@ -25,7 +27,18 @@ interface CartItems {
 }
 
 const CartOrderList: FC<CartItems> = () => {
+  const [OrderList, setOrderList] = useState([])
   const navigation = useNavigation();
+
+
+  const getOrderList = async ()=>{
+   const response = await fetchUserData() 
+    setOrderList(response);
+   }
+
+   useEffect(()=>{
+    getOrderList()
+   },[])
 
   return (
     <AppAreaView>
@@ -57,16 +70,16 @@ const CartOrderList: FC<CartItems> = () => {
 
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={OrderData}
+        data={OrderList}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <OrderItem
-            image={item.image}
-            totalAmount={item.totalAmount}
-            totalPrice={item.totalPrice}
-            date={item.date}
-          />
-        )}
+        renderItem={({ item }) => {
+          return (
+            <OrderItem
+              totalAmount={item.totalProductsPriceSum}
+              totalPrice={item.totalPrice}
+              date={getDataFromFireStoreTimestampObject(item.createdAt)}
+            />
+          );}}
       />
     </AppAreaView>
   );

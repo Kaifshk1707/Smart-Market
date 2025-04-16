@@ -7,24 +7,32 @@ import { sharePaddingHorizontalStyle } from '../../styles/shareStyle';
 import AppText from '../../components/text/AppText';
 import { s, vs } from 'react-native-size-matters';
   import { useNavigation } from "@react-navigation/native";
+import { SheetManager } from 'react-native-actions-sheet';
+import LanguageBottomSheet from '../../components/language/LanguageBottomSheet';
+import { useTranslation } from 'react-i18next';
 
 
 const ProfileScreen = () => {
-
-  
-    const navigation = useNavigation();
+const navigation = useNavigation();
+ const {t} = useTranslation()
+    
   return (
     <AppAreaView>
       <HomeHeader />
-      <AppText variant="bold" style={{ fontSize: s(18), marginTop: vs(10) }}>
+      {/* <AppText variant="bold" style={{ fontSize: s(18), marginTop: vs(10) }}>
         Hello, Shaikh Kaif
-      </AppText>
+      </AppText> */}
       <View style={{ paddingHorizontal: sharePaddingHorizontalStyle }}>
         <ProfileSectionButton
           onPress={() => navigation.navigate("CartOrderList")}
           title="My Orders"
         />
-        <ProfileSectionButton onPress={() => {}} title="Language" />
+        <ProfileSectionButton
+          onPress={() => SheetManager.show("Lang_Sheet")}
+          title="Language"
+        />
+
+        <LanguageBottomSheet />
         <ProfileSectionButton onPress={() => {}} title="Logout" />
       </View>
     </AppAreaView>

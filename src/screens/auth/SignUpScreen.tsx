@@ -15,6 +15,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
 import { showMessage } from "react-native-flash-message";
+import { useDispatch } from "react-redux";
+import { setUserData } from "../../redux/reducers/UserSlice";
+import { useTranslation } from "react-i18next";
 
 const Schema = yup.object({
   userName: yup
@@ -34,6 +37,8 @@ const Schema = yup.object({
 
 const SignUpScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {t} = useTranslation()
   const { control, handleSubmit } = useForm({
     resolver: yupResolver(Schema),
   });
@@ -54,7 +59,14 @@ const SignUpScreen = () => {
         duration: 3000,
       });
       navigation.navigate("MainAppBottomTab");
+
+        const userDataObj = {
+              uid: userCredentials.user.uid,
+            }
+      
+            dispatch(setUserData(userDataObj));
       return userCredentials.user;
+      
     } catch (error: any) {
       let errorMessage = "";
       if (error.code === "auth/email-already-in-use") {
@@ -83,29 +95,29 @@ const SignUpScreen = () => {
       <AppTextInputController
         control={control}
         name={"userName"}
-        placeholder="Enter your username"
+        placeholder={t("textInput.username")}
         keyboardType={"default"}
       />
       <AppTextInputController
         control={control}
         name={"email"}
-        placeholder="Enter your email"
+        placeholder={t("textInput.email")}
         keyboardType={"default"}
       />
       <AppTextInputController
         control={control}
         name={"password"}
-        placeholder="Enter your password"
+        placeholder={t("textInput.password")}
         keyboardType={"default"}
         secureTextEntry
       />
       <AppButton
-        title="Create New Account"
+        title={t("auth.createAccount")}
         style={{ width: vs(250) }}
         onPress={handleSubmit(handleCreate)}
       />
       <AppButton
-        title="Go to Sign-In"
+        title={t("auth.gotoSignIn")}
         style={styles.SignInButton}
         textColor={globalColor.blueGray}
         onPress={() => navigation.goBack("SignInScreen")}

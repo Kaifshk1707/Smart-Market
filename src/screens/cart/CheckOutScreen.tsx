@@ -10,13 +10,18 @@ import { s, vs } from "react-native-size-matters";
 import { globalColor } from "../../styles/globalColor";
 import AppTextInput from "../../components/inputs/AppTextInput";
 import AppButton from "../../components/buttons/AppButton";
-import { Is_Adnroid, Is_IOS } from "../../constants/constants";
+import { Is_Adnroid, Is_IOS, shippingFees, taxes } from "../../constants/constants";
 import { useNavigation } from "@react-navigation/native";
 import AppTextInputController from "../../components/inputs/AppTextInputController";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Entypo from "@expo/vector-icons/Entypo";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { addDoc, collection, doc } from "firebase/firestore";
+import { db } from "../../config/firebase";
+import { emptycart } from "../../redux/reducers/CartSlice";
 
 const Schema = yup.object({
   fullName: yup
@@ -38,14 +43,55 @@ type FormData  = yup.InferType<typeof Schema>
 
 const CheckOutScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const { control, handleSubmit } = useForm({
     resolver: yupResolver(Schema)
   });
 
-  const saveOrder = (formData: FormData) => {
-    Alert.alert(JSON.stringify(formData))
-    console.log(formData);
+  const {userData} = useSelector((state: RootState)=> state.UserSlice)
+  const {item} = useSelector((state: RootState)=> state.CartSlice)
+  const  totalProductsPriceSum  = item.reduce((acc, item) => acc + item.sum, 0);
+  const totalPrice = totalProductsPriceSum + taxes + shippingFees;
+
+  console.log("========userData==========");
+  console.log(JSON.stringify(userData), null, 2);
+  console.log("=========userData============");
+
+  
+
+  const saveOrder = async (formData: FormData) => {
+   try {
+      const orderData = {
+        ...formData,
+        item,
+        totalProductsPriceSum,
+        createdAt: new Date(),
+        totalPrice
+      };
+
+      const userOrderRef = collection(doc(db, "users", userData.uid), "orders");
+     await addDoc(userOrderRef, orderData);
+      dispatch(emptycart())
+
+       const orderRef = collection(db, "orders");
+      await addDoc(orderRef, orderData);
+       
+       
+       Alert.alert("Order saved successfully!");
+
+      console.log("Order ID: ", orderRef.id);
+      navigation.goBack("Cart");
+
+    //  Alert.alert(JSON.stringify(formData));
+    //  console.log(formData);
+
+
+   } catch (error) {
+      console.error("Error saving order: ", error);
+      Alert.alert("Error saving order", "Please try again later.");
+    
+   }
   };
 
   return (

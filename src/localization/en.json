@@ -1,0 +1,15 @@
+{
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "gotoSignIn":"Go to Sign-In",
+    "createAccount": "Create New Account"
+  },
+  "textInput": {
+      "username": "Username",   
+      "email": "Email",
+      "password": "Password"
+  }
+}

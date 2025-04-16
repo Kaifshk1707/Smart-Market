@@ -1,33 +1,40 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
-import React, { FC } from 'react'
-import AppText from '../text/AppText';
-import { s, vs } from 'react-native-size-matters';
-import { globalFontstyle } from '../../styles/fontStyle';
-import { globalColor } from '../../styles/globalColor';
+import { Image, StyleSheet, Text, View } from "react-native";
+import React, { FC } from "react";
+import AppText from "../text/AppText";
+import { s, vs } from "react-native-size-matters";
+import { globalFontstyle } from "../../styles/fontStyle";
+import { globalColor } from "../../styles/globalColor";
 
+interface OrderItem {
+  // image: string;
+  totalPrice: string | number;
+  totalAmount: string | number;
+  date: string | number;
+}
 
-    interface OrderItem {
-      image: string;
-      totalPrice: string | number;
-      totalAmount: string | number;
-      date: string | number;
-    }
-
-const OrderItem :FC<OrderItem> = ({ image, totalPrice, totalAmount, date }) => {
+const OrderItem: FC<OrderItem> = ({ image, totalPrice, totalAmount, date }) => {
   return (
     <View style={styles.container}>
       {/* Image Section */}
-      <View style={styles.imageWrapper}>
+      {/* <View style={styles.imageWrapper}>
         <Image
           source={{ uri: image }}
           style={styles.productImage}
           resizeMode="cover"
         />
-      </View>
+      </View> */}
 
       {/* Info Section */}
       <View style={styles.detailsWrapper}>
         <AppText style={styles.heading}>ORDER DETAILS :</AppText>
+        <View
+          style={{
+            height: 1,
+            borderColor: globalColor.blueGray,
+            borderWidth: 0.3,
+            marginBottom: s(5),
+          }}
+        />
 
         {/* Row 1: Total Price */}
         <View style={styles.row}>
@@ -51,7 +58,7 @@ const OrderItem :FC<OrderItem> = ({ image, totalPrice, totalAmount, date }) => {
   );
 };
 
-export default OrderItem
+export default OrderItem;
 
 const styles = StyleSheet.create({
   container: {
@@ -97,7 +104,7 @@ const styles = StyleSheet.create({
   },
   value: {
     fontSize: s(14),
-    color: globalColor.green, 
+    color: globalColor.green,
     fontFamily: globalFontstyle.medium,
   },
 });

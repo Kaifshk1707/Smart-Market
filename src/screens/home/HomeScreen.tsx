@@ -16,7 +16,6 @@ const HomeScreen = () => {
   const getData = async ()=>{
     const data = await getProductData()
     setProducts(data)
-    console.log("PRODUCTS",data)
   }
 
   useEffect(()=>{

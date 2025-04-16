@@ -10,12 +10,15 @@ import { globalColor } from "../../styles/globalColor";
 import { useNavigation } from "@react-navigation/native";
 import { globalFontstyle } from "../../styles/fontStyle";
 import AppTextInputController from "../../components/inputs/AppTextInputController";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
 import { showMessage } from "react-native-flash-message";
+import { useDispatch } from "react-redux";
+import { setUserData } from "../../redux/reducers/UserSlice";
+import { useTranslation } from "react-i18next";
 
 const Schema = yup.object({
   email: yup
@@ -30,6 +33,8 @@ const Schema = yup.object({
 
 const SignInScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {t} = useTranslation()
 
   const { control, handleSubmit } = useForm({
     resolver: yupResolver(Schema),
@@ -44,10 +49,16 @@ const SignInScreen = () => {
         loginData.email,
         loginData.password
       );
-      console.log(userCredentials);
-
+      console.log(JSON.stringify(userCredentials.user, null, 2));
       Alert.alert("Login has been Successfully");
       navigation.navigate("MainAppBottomTab");
+
+      const userDataObj = {
+        uid: userCredentials.user.uid,
+      }
+
+      dispatch(setUserData(userDataObj));
+
     } catch (error: any) {
       let errorMessage = "";
       if (error.code === "auth/user-not-found") {
@@ -73,24 +84,24 @@ const SignInScreen = () => {
       <AppTextInputController
         control={control}
         name={"email"}
-        placeholder="Full Name"
+        placeholder={t("textInput.email")}
         keyboardType={"default"}
       />
       <AppTextInputController
         control={control}
         name={"password"}
-        placeholder="Enter your password"
+        placeholder={t("textInput.password")}
         secureTextEntry
         keyboardType={"default"}
       />
       <AppButton
-        title="Login"
+        title={t("auth.login")}
         style={{ width: vs(250) }}
         // onPress={() => navigation.navigate("MainAppBottomTab")}
         onPress={handleSubmit(handleLogin)}
       />
       <AppButton
-        title="SignUp"
+        title={t("auth.signUp")}
         style={styles.registerButton}
         textColor={globalColor.blueGray}
         onPress={() => navigation.navigate("SignUpScreen")}
