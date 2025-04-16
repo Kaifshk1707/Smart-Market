@@ -81,16 +81,19 @@ const CheckOutScreen = () => {
             control={control}
             name={"fullName"}
             placeholder="Full Name"
+            keyboardType={"default"}
           />
           <AppTextInputController
             control={control}
             name={"phoneNumber"}
             placeholder="Phone Number"
+            keyboardType={"default"}
           />
           <AppTextInputController
             control={control}
             name={"detailAdress"}
             placeholder="Detail Adress"
+            keyboardType={"default"}
           />
         </View>
       </View>
