@@ -1,3 +1,5 @@
+
+
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import AppAreaView from "./src/components/view/safeAreaView";
 import { NavigationContainer } from "@react-navigation/native";
