@@ -7,9 +7,11 @@ import { s, vs } from "react-native-size-matters";
 import { globalColor } from "../../styles/globalColor";
 import { useNavigation } from "@react-navigation/native";
 import AppButton from "../../components/buttons/AppButton";
+import { useTranslation } from "react-i18next";
 
 const EmptyCartScreen = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation();
   return (
     <View
       style={{
@@ -33,7 +35,7 @@ const EmptyCartScreen = () => {
           fontFamily: globalFontstyle.bold,
         }}
       >
-        Your cart is empty
+        {t("empty_cart_title")}
       </AppText>
       <AppText
         style={{
@@ -44,10 +46,10 @@ const EmptyCartScreen = () => {
           fontFamily: globalFontstyle.semiBold,
         }}
       >
-        Looks like you haven’t added anything to your cart yet.
+        {t("empty_cart_subtitle")}
       </AppText>
       <AppButton
-        title="Start Shopping"
+        title={t("start_shopping")}
         onPress={() => {
           navigation.navigate("Home");
         }}

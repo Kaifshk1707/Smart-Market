@@ -25,15 +25,15 @@ const navigation = useNavigation();
       <View style={{ paddingHorizontal: sharePaddingHorizontalStyle }}>
         <ProfileSectionButton
           onPress={() => navigation.navigate("CartOrderList")}
-          title="My Orders"
+          title={t("profile_my_orders")}
         />
         <ProfileSectionButton
           onPress={() => SheetManager.show("Lang_Sheet")}
-          title="Language"
+          title={t("profile_language")}
         />
 
         <LanguageBottomSheet />
-        <ProfileSectionButton onPress={() => {}} title="Logout" />
+        <ProfileSectionButton onPress={() => {}} title={t("profile_logout")} />
       </View>
     </AppAreaView>
   );

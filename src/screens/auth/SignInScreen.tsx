@@ -20,21 +20,22 @@ import { useDispatch } from "react-redux";
 import { setUserData } from "../../redux/reducers/UserSlice";
 import { useTranslation } from "react-i18next";
 
-const Schema = yup.object({
-  email: yup
-    .string()
-    .required("Email is required")
-    .email("Please enter a valid email"),
-  password: yup
-    .string()
-    .required("Password is required")
-    .min(6, "Must be at least 6 to 10 character's"),
-});
+
 
 const SignInScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const {t} = useTranslation()
+  const { t } = useTranslation();
+  const Schema = yup.object({
+    email: yup
+      .string()
+      .required(t("sign_in_email_required"))
+      .email(t("sign_in_email_invalid")),
+    password: yup
+      .string()
+      .required(t("sign_in_password_required"))
+      .min(6, t("sign_in_password_min_length")),
+  });
 
   const { control, handleSubmit } = useForm({
     resolver: yupResolver(Schema),
@@ -50,23 +51,20 @@ const SignInScreen = () => {
         loginData.password
       );
       console.log(JSON.stringify(userCredentials.user, null, 2));
-      Alert.alert("Login has been Successfully");
+      Alert.alert(t("login_has_been_successfully"));
       navigation.navigate("MainAppBottomTab");
-
       const userDataObj = {
         uid: userCredentials.user.uid,
-      }
-
+      };
       dispatch(setUserData(userDataObj));
-
     } catch (error: any) {
       let errorMessage = "";
       if (error.code === "auth/user-not-found") {
-        errorMessage = "User not found. Please check your email.";
+        errorMessage = t("sign_in_error_user_not_found");
       } else if (error.code === "auth/invalid-credential") {
-        errorMessage = "Please check your email or password.";
+        errorMessage = t("sign_in_error_invalid_credential");
       } else {
-        errorMessage = "An error occurred. Please try again later.";
+        errorMessage = t("sign_in_error_default");
       }
       showMessage({
         type: "danger",
@@ -84,24 +82,24 @@ const SignInScreen = () => {
       <AppTextInputController
         control={control}
         name={"email"}
-        placeholder={t("textInput.email")}
+        placeholder={t("sign_in_email_placeholder")}
         keyboardType={"default"}
       />
       <AppTextInputController
         control={control}
         name={"password"}
-        placeholder={t("textInput.password")}
+        placeholder={t("sign_in_password_placeholder")}
         secureTextEntry
         keyboardType={"default"}
       />
       <AppButton
-        title={t("auth.login")}
+        title={t("sign_in_login_button")}
         style={{ width: vs(250) }}
         // onPress={() => navigation.navigate("MainAppBottomTab")}
         onPress={handleSubmit(handleLogin)}
       />
       <AppButton
-        title={t("auth.signUp")}
+        title={t("sign_in_signup_button")}
         style={styles.registerButton}
         textColor={globalColor.blueGray}
         onPress={() => navigation.navigate("SignUpScreen")}

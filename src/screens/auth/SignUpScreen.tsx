@@ -19,26 +19,30 @@ import { useDispatch } from "react-redux";
 import { setUserData } from "../../redux/reducers/UserSlice";
 import { useTranslation } from "react-i18next";
 
-const Schema = yup.object({
-  userName: yup
-    .string()
-    .required("Username is required")
-    .min(4, "Username must be more than 4 character's"),
-
-  email: yup
-    .string()
-    .required("Email is required")
-    .email("Please enter a valid email"),
-  password: yup
-    .string()
-    .required("Password is required")
-    .min(6, "Must be at least 6 to 10 character's"),
-});
 
 const SignUpScreen = () => {
+  const { t } = useTranslation();
+
+  const Schema = yup.object({
+    userName: yup
+      .string()
+      .required(t("sign_up_username_required"))
+      .min(4, t("sign_up_username_min_length")),
+
+    email: yup
+      .string()
+      .required(t("sign_in_email_required"))
+      .email(t("sign_in_email_invalid")),
+    password: yup
+      .string()
+      .required(t("sign_in_password_required"))
+      .min(6, t("sign_in_password_min_length")),
+  });
+
+
+
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const {t} = useTranslation()
   const { control, handleSubmit } = useForm({
     resolver: yupResolver(Schema),
   });
@@ -51,13 +55,13 @@ const SignUpScreen = () => {
         newData.email,
         newData.password
       );
-      Alert.alert("Account has been created, Successfully");
-      showMessage({
-        type: "success",
-        message: "Account has been created, Successfully",
-        icon: "success",
-        duration: 3000,
-      });
+      Alert.alert(t("sign_up_success"));
+      // showMessage({
+      //   type: "success",
+      //   message: "Account has been created, Successfully",
+      //   icon: "success",
+      //   duration: 3000,
+      // });
       navigation.navigate("MainAppBottomTab");
 
         const userDataObj = {
@@ -70,23 +74,22 @@ const SignUpScreen = () => {
     } catch (error: any) {
       let errorMessage = "";
       if (error.code === "auth/email-already-in-use") {
-        errorMessage = "This email is already in use! you can't this email";
+        errorMessage = t("sign_up_error_email_in_use");
       } else if (error.code === "auth/invalid-email") {
-        errorMessage = "The email address is invalid.";
+        errorMessage = t("sign_up_error_invalid_email");
       } else if (error.code === "auth/weak-password") {
-        errorMessage = "The password is too weak.";
+        errorMessage = t("sign_up_error_weak_password");
       } else {
-        errorMessage = "An error occurred. Please try again later.";
+        errorMessage = t("sign_up_error_default");
       }
-      showMessage({
-        type: "danger",
-        message: errorMessage,
-        icon: "danger",
-        duration: 3000,
-      });
+      // showMessage({
+      //   type: "danger",
+      //   message: errorMessage,
+      //   icon: "danger",
+      //   duration: 3000,
+      // });
       Alert.alert(errorMessage);
     }
-   // ("Something went wrong. Please try again later.");
   };
 
   return (
@@ -95,29 +98,29 @@ const SignUpScreen = () => {
       <AppTextInputController
         control={control}
         name={"userName"}
-        placeholder={t("textInput.username")}
+        placeholder={t("sign_up_username_placeholder")}
         keyboardType={"default"}
       />
       <AppTextInputController
         control={control}
         name={"email"}
-        placeholder={t("textInput.email")}
+        placeholder={t("sign_in_email_placeholder")}
         keyboardType={"default"}
       />
       <AppTextInputController
         control={control}
         name={"password"}
-        placeholder={t("textInput.password")}
+        placeholder={t("sign_in_password_placeholder")}
         keyboardType={"default"}
         secureTextEntry
       />
       <AppButton
-        title={t("auth.createAccount")}
+        title={t("sign_up_create_account_button")}
         style={{ width: vs(250) }}
         onPress={handleSubmit(handleCreate)}
       />
       <AppButton
-        title={t("auth.gotoSignIn")}
+        title={t("sign_up_goto_signin_button")}
         style={styles.SignInButton}
         textColor={globalColor.blueGray}
         onPress={() => navigation.goBack("SignInScreen")}

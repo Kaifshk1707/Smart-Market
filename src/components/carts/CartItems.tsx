@@ -15,6 +15,7 @@ import EvilIcons from "@expo/vector-icons/EvilIcons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import App from "../../../App";
 import { commonStyle } from "../../styles/shareStyle";
+import { useTranslation } from "react-i18next";
 
 interface CartItems {
   onDeleteButton: () => void;
@@ -35,8 +36,8 @@ const CartItems: FC<CartItems> = ({
   onDecreasePress,
   onDeleteButton,
 }) => {
-  const [increase, setIncrease] = useState(0);
 
+  const {t} = useTranslation()
   return (
     <View
       style={{
@@ -129,7 +130,7 @@ const CartItems: FC<CartItems> = ({
               right: s(2),
             }}
           >
-            Delete
+           {t("cart_delete_button")}
           </AppText>
         </TouchableOpacity>
       </View>

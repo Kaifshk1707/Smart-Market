@@ -10,7 +10,12 @@ import { s, vs } from "react-native-size-matters";
 import { globalColor } from "../../styles/globalColor";
 import AppTextInput from "../../components/inputs/AppTextInput";
 import AppButton from "../../components/buttons/AppButton";
-import { Is_Adnroid, Is_IOS, shippingFees, taxes } from "../../constants/constants";
+import {
+  Is_Adnroid,
+  Is_IOS,
+  shippingFees,
+  taxes,
+} from "../../constants/constants";
 import { useNavigation } from "@react-navigation/native";
 import AppTextInputController from "../../components/inputs/AppTextInputController";
 import { useForm } from "react-hook-form";
@@ -22,76 +27,66 @@ import { RootState } from "../../redux/store";
 import { addDoc, collection, doc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { emptycart } from "../../redux/reducers/CartSlice";
+import { useTranslation } from "react-i18next";
 
-const Schema = yup.object({
-  fullName: yup
-    .string()
-    .required("Full name is required")
-    .min(3, "Name must be at least 3 characters"),
-  phoneNumber: yup
-    .string()
-    .required("Phone number is required")
-    .matches(/^[0-9]+$/, "Must be at least digits")
-    .min(10, "Phone number must be atleast 10 digits"),
-  detailAdress: yup
-    .string()
-    .required("Details address is required")
-    .min(15, "Please provide a detailed address with at least 15 characters"),
-}).required()
 
-type FormData  = yup.InferType<typeof Schema>
 
 const CheckOutScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+
+  const Schema = yup
+    .object({
+      fullName: yup
+        .string()
+        .required(t("checkout_name_required"))
+        .min(3, t("checkout_name_min_length")),
+      phoneNumber: yup
+        .string()
+        .required(t("checkout_phone_required"))
+        .matches(/^[0-9]+$/, t("checkout_phone_digits"))
+        .min(10, t("checkout_phone_min_length")),
+      detailAdress: yup
+        .string()
+        .required(t("checkout_address_required"))
+        .min(15, t("checkout_address_min_length")),
+    })
+    .required();
+
+  type FormData = yup.InferType<typeof Schema>;
 
   const { control, handleSubmit } = useForm({
-    resolver: yupResolver(Schema)
+    resolver: yupResolver(Schema),
   });
 
-  const {userData} = useSelector((state: RootState)=> state.UserSlice)
-  const {item} = useSelector((state: RootState)=> state.CartSlice)
-  const  totalProductsPriceSum  = item.reduce((acc, item) => acc + item.sum, 0);
+  const { userData } = useSelector((state: RootState) => state.UserSlice);
+  const { item } = useSelector((state: RootState) => state.CartSlice);
+  const totalProductsPriceSum = item.reduce((acc, item) => acc + item.sum, 0);
   const totalPrice = totalProductsPriceSum + taxes + shippingFees;
 
-  console.log("========userData==========");
-  console.log(JSON.stringify(userData), null, 2);
-  console.log("=========userData============");
-
-  
-
   const saveOrder = async (formData: FormData) => {
-   try {
+    try {
       const orderData = {
         ...formData,
         item,
         totalProductsPriceSum,
         createdAt: new Date(),
-        totalPrice
+        totalPrice,
       };
 
       const userOrderRef = collection(doc(db, "users", userData.uid), "orders");
-     await addDoc(userOrderRef, orderData);
-      dispatch(emptycart())
+      await addDoc(userOrderRef, orderData);
+      dispatch(emptycart());
 
-       const orderRef = collection(db, "orders");
+      const orderRef = collection(db, "orders");
       await addDoc(orderRef, orderData);
-       
-       
-       Alert.alert("Order saved successfully!");
-
-      console.log("Order ID: ", orderRef.id);
+      Alert.alert(t("checkout_success_message"));
       navigation.goBack("Cart");
-
-    //  Alert.alert(JSON.stringify(formData));
-    //  console.log(formData);
-
-
-   } catch (error) {
+    } catch (error) {
       console.error("Error saving order: ", error);
-      Alert.alert("Error saving order", "Please try again later.");
-    
-   }
+      Alert.alert(t("checkout_error_message"));
+    }
   };
 
   return (
@@ -118,7 +113,7 @@ const CheckOutScreen = () => {
             color: globalColor.black,
           }}
         >
-          Back
+          {t("screen_Back")}
         </AppText>
       </View>
       <View style={{ paddingHorizontal: sharePaddingHorizontalStyle }}>
@@ -126,25 +121,28 @@ const CheckOutScreen = () => {
           <AppTextInputController
             control={control}
             name={"fullName"}
-            placeholder="Full Name"
+            placeholder={t("checkout_fullname_placeholder")}
             keyboardType={"default"}
           />
           <AppTextInputController
             control={control}
             name={"phoneNumber"}
-            placeholder="Phone Number"
+            placeholder={t("checkout_phone_placeholder")}
             keyboardType={"default"}
           />
           <AppTextInputController
             control={control}
             name={"detailAdress"}
-            placeholder="Detail Adress"
+            placeholder={t("checkout_address_placeholder")}
             keyboardType={"default"}
           />
         </View>
       </View>
       <View style={styles.bottomButton}>
-        <AppButton title="Confirm" onPress={handleSubmit(saveOrder)} />
+        <AppButton
+          title={t("checkout_confirm_button")}
+          onPress={handleSubmit(saveOrder)}
+        />
       </View>
     </AppAreaView>
   );

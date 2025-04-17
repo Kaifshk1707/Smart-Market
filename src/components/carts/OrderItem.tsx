@@ -4,6 +4,7 @@ import AppText from "../text/AppText";
 import { s, vs } from "react-native-size-matters";
 import { globalFontstyle } from "../../styles/fontStyle";
 import { globalColor } from "../../styles/globalColor";
+import { useTranslation } from "react-i18next";
 
 interface OrderItem {
   // image: string;
@@ -12,7 +13,8 @@ interface OrderItem {
   date: string | number;
 }
 
-const OrderItem: FC<OrderItem> = ({ image, totalPrice, totalAmount, date }) => {
+const OrderItem: FC<OrderItem> = ({ totalPrice, date }) => {
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
       {/* Image Section */}
@@ -26,7 +28,7 @@ const OrderItem: FC<OrderItem> = ({ image, totalPrice, totalAmount, date }) => {
 
       {/* Info Section */}
       <View style={styles.detailsWrapper}>
-        <AppText style={styles.heading}>ORDER DETAILS :</AppText>
+        <AppText style={styles.heading}>{t("order_details_title")}</AppText>
         <View
           style={{
             height: 1,
@@ -38,19 +40,15 @@ const OrderItem: FC<OrderItem> = ({ image, totalPrice, totalAmount, date }) => {
 
         {/* Row 1: Total Price */}
         <View style={styles.row}>
-          <AppText style={styles.label}>Total Price:</AppText>
-          <AppText style={styles.value}>{totalPrice} $</AppText>
-        </View>
-
-        {/* Row 2: Total Amount */}
-        <View style={styles.row}>
-          <AppText style={styles.label}>Amount:</AppText>
-          <AppText style={styles.value}>{totalAmount}</AppText>
+          <AppText style={styles.label}>{t("order_total_price")}</AppText>
+          <AppText style={styles.value}>
+            {totalPrice} {t("totals_currency")}
+          </AppText>
         </View>
 
         {/* Row 3: Date */}
         <View style={styles.row}>
-          <AppText style={styles.label}>Date:</AppText>
+          <AppText style={styles.label}>{t("order_date")}</AppText>
           <AppText style={styles.value}>{date}</AppText>
         </View>
       </View>

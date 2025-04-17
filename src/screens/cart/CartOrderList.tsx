@@ -17,6 +17,7 @@ import { useNavigation } from "@react-navigation/native";
 import OrderItem from "../../components/carts/OrderItem";
 import { fetchUserData } from "../../config/dataServices";
 import { getDataFromFireStoreTimestampObject } from "../../helpers/dateTimeHelper";
+import { useTranslation } from "react-i18next";
 
 interface CartItems {
   onDeleteButton: () => void;
@@ -29,6 +30,7 @@ interface CartItems {
 const CartOrderList: FC<CartItems> = () => {
   const [OrderList, setOrderList] = useState([])
   const navigation = useNavigation();
+  const {t} = useTranslation();
 
 
   const getOrderList = async ()=>{
@@ -64,7 +66,7 @@ const CartOrderList: FC<CartItems> = () => {
             color: globalColor.black,
           }}
         >
-          Order-List
+          {t("order-list")}
         </AppText>
       </View>
 
@@ -79,7 +81,8 @@ const CartOrderList: FC<CartItems> = () => {
               totalPrice={item.totalPrice}
               date={getDataFromFireStoreTimestampObject(item.createdAt)}
             />
-          );}}
+          );
+        }}
       />
     </AppAreaView>
   );
