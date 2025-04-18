@@ -61,6 +61,10 @@
   "profile_logout": "لاگ آؤٹ",
   "profile_welcome": "خوش آمدید {{userName}}",
   "change_language": "زبان تبدیل کریں",
+  "logout_confirmation_title": "کیا آپ کو یقین ہے؟",
+  "logout_confirmation": "کیا آپ لاگ آؤٹ کرنا چاہتے ہیں؟",
+  "logout": "لاگ آؤٹ",
+  "cancel": "کینسل کریں",
 
   "totals_items_price": "اشیاء کی قیمت:",
   "totals_taxes": "ٹیکس:",

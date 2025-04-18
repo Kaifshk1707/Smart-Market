@@ -20,8 +20,6 @@ import { useDispatch } from "react-redux";
 import { setUserData } from "../../redux/reducers/UserSlice";
 import { useTranslation } from "react-i18next";
 
-
-
 const SignInScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -53,9 +51,11 @@ const SignInScreen = () => {
       console.log(JSON.stringify(userCredentials.user, null, 2));
       Alert.alert(t("login_has_been_successfully"));
       navigation.navigate("MainAppBottomTab");
+
       const userDataObj = {
         uid: userCredentials.user.uid,
       };
+
       dispatch(setUserData(userDataObj));
     } catch (error: any) {
       let errorMessage = "";

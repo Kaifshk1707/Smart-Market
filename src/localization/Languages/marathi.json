@@ -37,6 +37,10 @@
   "cart_delete_button": "हटवा",
   "screen_Back": "मागे",
   "change_language": "भाषा बदला",
+  "logout_confirmation_title": "तुम्हाला खात्री आहे का?",
+  "logout_confirmation": "तुम्ही लॉगआउट करू इच्छिता का?",
+  "logout": "लॉगआउट",
+  "cancel": "रद्द करा",
 
   "empty_cart_title": "तुमची कार्ट रिकामी आहे",
   "empty_cart_subtitle": "आमची उत्पादने ब्राउझ करा आणि तुम्हाला आवडेल अशी काहीतरी शोधा.",

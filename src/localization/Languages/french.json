@@ -31,6 +31,10 @@
   "tab_home": "Accueil",
   "tab_cart": "Panier",
   "tab_profile": "Profil",
+  "logout_confirmation_title": "Confirmation de déconnexion",
+  "logout_confirmation": "Êtes-vous sûr de vouloir vous déconnecter ?",
+  "logout": "Déconnexion",
+  "cancel": "Annuler",
 
   "cart_continue_button": "Continuer",
   "cart_checkout_screen": "Écran de paiement",

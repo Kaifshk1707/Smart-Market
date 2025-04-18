@@ -61,6 +61,10 @@
   "profile_logout": "Abmelden",
   "profile_welcome": "Willkommen {{userName}}",
   "change_language": "Sprache ändern",
+  "logout_confirmation_title": "Abmeldebestätigung",
+  "logout_confirmation": "Sind Sie sicher, dass Sie sich abmelden möchten?",
+  "logout": "Abmelden",
+  "cancel": "Abbrechen",
 
   "totals_items_price": "Artikelpreis:",
   "totals_taxes": "Steuern:",

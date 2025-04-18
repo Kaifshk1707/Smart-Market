@@ -37,6 +37,10 @@
   "cart_delete_button": "Eliminar",
   "screen_Back": "Atrás",
   "change_language": "Cambiar idioma",
+  "logout_confirmation_title": "¿Estás seguro?",
+  "logout_confirmation": "¿Estás seguro de que deseas cerrar sesión?",
+  "logout": "Cerrar sesión",
+  "cancel": "Cancelar",
 
   "empty_cart_title": "Tu carrito está vacío",
   "empty_cart_subtitle": "Explora nuestros productos y encuentra algo que te guste.",

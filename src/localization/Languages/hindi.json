@@ -61,6 +61,10 @@
   "profile_logout": "लॉगआउट",
   "profile_welcome": "स्वागत है {{userName}}",
   "change_language": "भाषा बदलें",
+  "logout_confirmation_title": "क्या आप निश्चित हैं?",
+  "logout_confirmation": "क्या आप लॉगआउट करना चाहते हैं?",
+  "logout": "लॉगआउट",
+  "cancel": "रद्द करें",
 
   "totals_items_price": "आइटम्स का मूल्य:",
   "totals_taxes": "कर:",

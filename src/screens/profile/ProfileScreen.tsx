@@ -1,44 +1,59 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import HomeHeader from '../../components/headers/HomeHeader';
-import AppAreaView from '../../components/view/safeAreaView';
-import ProfileSectionButton from '../../components/buttons/ProfileSectionButton';
-import { sharePaddingHorizontalStyle } from '../../styles/shareStyle';
-import AppText from '../../components/text/AppText';
-import { s, vs } from 'react-native-size-matters';
-  import { useNavigation } from "@react-navigation/native";
-import { SheetManager } from 'react-native-actions-sheet';
-import LanguageBottomSheet from '../../components/language/LanguageBottomSheet';
-import { useTranslation } from 'react-i18next';
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { SheetManager } from "react-native-actions-sheet";
+import { useTranslation } from "react-i18next";
 
+// Components
+import AppAreaView from "../../components/view/safeAreaView";
+import HomeHeader from "../../components/headers/HomeHeader";
+import ProfileSectionButton from "../../components/buttons/ProfileSectionButton";
+import LanguageBottomSheet from "../../components/language/LanguageBottomSheet";
+import LogoutBottomSheet from "./bottomSheet/LogoutBottomSheet";
+
+// Styles
+import { sharePaddingHorizontalStyle } from "../../styles/shareStyle";
+import { s, vs } from "react-native-size-matters";
+import AppText from "../../components/text/AppText";
 
 const ProfileScreen = () => {
-const navigation = useNavigation();
- const {t} = useTranslation()
-    
+  const navigation = useNavigation();
+  const { t } = useTranslation();
+
   return (
     <AppAreaView>
       <HomeHeader />
-      {/* <AppText variant="bold" style={{ fontSize: s(18), marginTop: vs(10) }}>
-        Hello, Shaikh Kaif
-      </AppText> */}
-      <View style={{ paddingHorizontal: sharePaddingHorizontalStyle }}>
+
+      <View style={styles.content}>
+        {/* Orders */}
         <ProfileSectionButton
           onPress={() => navigation.navigate("CartOrderList")}
           title={t("profile_my_orders")}
         />
+
+        {/* Language Selection */}
         <ProfileSectionButton
           onPress={() => SheetManager.show("Lang_Sheet")}
           title={t("profile_language")}
         />
-
         <LanguageBottomSheet />
-        <ProfileSectionButton onPress={() => {}} title={t("profile_logout")} />
+
+        {/* Logout */}
+        <ProfileSectionButton
+          onPress={() => SheetManager.show("Logout_Sheet")}
+          title={t("profile_logout")}
+        />
+        <LogoutBottomSheet />
       </View>
     </AppAreaView>
   );
-}
+};
 
-export default ProfileScreen
+export default ProfileScreen;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  content: {
+    paddingHorizontal: sharePaddingHorizontalStyle,
+    marginTop: vs(10),
+    },
+});

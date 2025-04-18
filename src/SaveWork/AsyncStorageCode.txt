@@ -55,3 +55,28 @@ const App = () => {
 };
 
 export default App;
+
+another wroking code===========
+  const { userData, isLoading } = useSelector(
+    (state: RootState) => state.UserSlice
+  );
+
+  const isLoggedIn = async () => {
+    try {
+      const storedData = await AsyncStorage.getItem("user_Data");
+      console.log("Stored Data:", storedData);
+
+      if (storedData) {
+        dispatch(setUserData(JSON.parse(storedData)));
+      }else{
+        dispatch(setLoading(false));
+      }
+    } catch (error) {
+      console.log("Error checking login status:", error);
+        dispatch(setLoading(false));
+    }
+  };
+
+  useEffect(() => {
+    isLoggedIn();
+  }, []);

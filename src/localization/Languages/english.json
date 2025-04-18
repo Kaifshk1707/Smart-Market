@@ -1,5 +1,3 @@
-
-
 {
   "sign_in_email_placeholder": "Email",
   "sign_in_password_placeholder": "Password",
@@ -63,6 +61,10 @@
   "profile_logout": "Logout",
   "profile_welcome": "Welcome {{userName}}",
   "change_language": "Change Language",
+  "logout_confirmation_title": "Are you sure?",
+  "logout_confirmation": "You will be logged out from this device.",
+  "logout": "Logout",
+  "cancel": "Cancel",
 
   "totals_items_price": "Items Price:",
   "totals_taxes": "Taxes:",

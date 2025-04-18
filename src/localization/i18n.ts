@@ -8,8 +8,7 @@ import french from "./Languages/french.json";
 import german from "./Languages/german.json";
 import urdu from "./Languages/urdu.json";
 import marathi from "./Languages/marathi.json";
-
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LANGUAGES = {
   english: {
@@ -38,16 +37,48 @@ const LANGUAGES = {
   },
 };
 
-i18n.use(initReactI18next).init({
-  resources: LANGUAGES,
-  fallbackLng: "english",
-  defaultNS: "translation",
-  ns: ["translation"],
-  react: {
-    useSuspense: false,
+
+
+const LANGUAGE_DETECOR = {
+  type: "languageDetector",
+  async: true,
+
+  detect: async (callBack: (lang: string) => void) => {
+    try {
+      const saveLanguage = await AsyncStorage.getItem("userLanguage");
+
+      if (saveLanguage) {
+        callBack(saveLanguage);
+        return;
+      }
+    } catch (error) {
+      console.error("Error detecting language:", error);
+    }
+    callBack("english");
   },
-  interpolation: {
-    escapeValue: false, // React already does escaping
+
+  cacheUserLanguage: async (lang: string) => {
+    try {
+      await AsyncStorage.setItem("userLanguage", lang);
+    } catch (error) {
+      console.error("Error caching user language:", error);
+    }
   },
-});
+};
+
+i18n
+  .use(LANGUAGE_DETECOR as any)
+  .use(initReactI18next)
+  .init({
+    resources: LANGUAGES,
+    fallbackLng: "english",
+    defaultNS: "translation",
+    ns: ["translation"],
+    react: {
+      useSuspense: false,
+    },
+    interpolation: {
+      escapeValue: false, // React already does escaping
+    },
+  });
 export default i18n;

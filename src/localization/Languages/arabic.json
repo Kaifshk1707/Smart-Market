@@ -31,6 +31,10 @@
   "tab_home": "الرئيسية",
   "tab_cart": "السلة",
   "tab_profile": "الملف الشخصي",
+  "logout": "تسجيل الخروج",
+  "logout_confirmation_title": "تأكيد تسجيل الخروج",
+  "logout_confirmation": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+  "cancel": "إلغاء",
 
   "cart_continue_button": "متابعة",
   "cart_checkout_screen": "شاشة الدفع",
