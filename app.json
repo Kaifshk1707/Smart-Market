@@ -4,11 +4,11 @@
     "slug": "Smart-Market",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/AppLogo2.png",
+    "icon": "./assets/transLogo.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/AppLogo2.png",
+      "image": "./assets/transLogo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,12 +17,29 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/AppLogo2.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.kaifshk17.SmartMarket"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#ffffff",
+          "image": "./assets/AppLogo2.png",
+          "imageWidth": 200
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "fb08c343-deb3-4c9e-a870-fb69cbb7c847"
+      }
+    },
+    "owner": "kaifshk17"
   }
 }

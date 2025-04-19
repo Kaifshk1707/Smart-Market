@@ -37,6 +37,10 @@ const SignInScreen = () => {
 
   const { control, handleSubmit } = useForm({
     resolver: yupResolver(Schema),
+    defaultValues:{
+      email: __DEV__ ? "s1@gmail.com" : "",
+      password: __DEV__?  "123456" : "",
+    }
   });
 
   type loginData = yup.InferType<typeof Schema>;
